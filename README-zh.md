@@ -57,10 +57,11 @@ sudo bash install-template
 
 ```
 curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
-curl -L "https://github.com/docker/compose/releases/download/v2.1.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-ln -sf /usr/local/bin/docker-compose  /usr/bin
+sudo systemctl enable docker
 sudo systemctl start docker
+alias docker-compose='docker compose'
+echo "alias docker-compose='docker compose'" >> /etc/profile.d/docker-compose.sh
+source /etc/profile.d/docker-compose.sh
 ```
 
 #### 安装 ONLYOFFICE
@@ -74,7 +75,8 @@ echo aaa
 echo bbb  
 # .env文件的SITE_NAME需要修改成公网IP或者域名才能被外网访问  
 # 默认启动的是ERPNext12，如果您想运行ERPNext13,只需将ERPNEXT_VERSION、FRAPPE_VERSION修改成v13  
-sudo docker-compose up -d
+sudo docker network create websoft9 
+sudo docker compose up -d
 ```
 
 ### 常见问题

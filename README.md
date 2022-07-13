@@ -53,10 +53,11 @@ If you have not install Docker and Docker-Compose, refer to the following comman
 
 ```
 curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
-curl -L "https://github.com/docker/compose/releases/download/v2.1.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-ln -sf /usr/local/bin/docker-compose  /usr/bin
+sudo systemctl enable docker
 sudo systemctl start docker
+alias docker-compose='docker compose'
+echo "alias docker-compose='docker compose'" >> /etc/profile.d/docker-compose.sh
+source /etc/profile.d/docker-compose.sh
 ```
 
 #### Install ONLYOFFICE
@@ -70,7 +71,8 @@ echo aaa
 echo bbb  
 # .env file's [SITE_NAME] should  be changed to public IP or domain name to be accessed by Internet  
 # The default startup is erpnext12. If you want to run erpnext13, you only need to change ERPNEXT_VERSION/FRAPPE_VERSIO to V13  
-docker-compose  up -d
+docker network create websoft9 
+docker compose  up -d
 ```
 
 ### FAQ
